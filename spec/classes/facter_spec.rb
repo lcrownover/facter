@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'facter' do
-
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
@@ -12,10 +11,7 @@ describe 'facter' do
         it { is_expected.to contain_exec('mkdir -p /etc/puppetlabs/facter/facts.d/') }
       when 'windows'
         it { is_expected.to contain_exec('mkdir -p C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\') }
-      end#case
-
-    end#context
-
-  end#each
-
-end#describe
+      end # case
+    end # context
+  end # each
+end # describe
