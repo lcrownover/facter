@@ -17,17 +17,15 @@
 # ===================================================== #
 #
 class facter (
-  $create_facts_d_dir = true,
-  $facts_path         = $facter::params::facts_path,
-  $fact_hash          = {}
+  $facts_path              = $facter::params::facts_path,
+  $fact_hash               = {},
+  $disable_reserved_absent = false,
 ) inherits facter::params {
 
-  # Management of facts_path
-  if $create_facts_d_dir {
-    exec { "mkdir -p ${facts_path}":
-      path    => $facts['path'],
-      creates => $facts_path,
-    }
+  # Create the folder if it doesn't exist
+  exec { "mkdir -p ${facts_path}":
+    path    => $facts['path'],
+    creates => $facts_path,
   }
 
   # Setting facter facts via hiera:
@@ -37,11 +35,23 @@ class facter (
       $ensure = getvar('fact_value.ensure', 'present')
       $value  = getvar('fact_value.value',  '')
     }
+
     else {
-      # Using the easy syntax
-      if $fact_value == 'absent' { $ensure = 'absent' } else { $ensure = 'present'}
+      # If you turn off the reserved word, it's always present unless
+      # explicitly set to absent via the $fact_value being a hash including
+      # the key name "ensure"
+      if $disable_reserved_absent {
+        $ensure = 'present'
+      }
+      else {
+        # Using the default behavior: cleaner way to remove facts
+        # myfact: 'absent'
+        if $fact_value == 'absent' { $ensure = 'absent' } else { $ensure = 'present'}
+      }
+
       $value = $fact_value
     }
+
     facter::fact { $fact_name:
       ensure => $ensure,
       value  => $value,
