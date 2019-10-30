@@ -2,9 +2,9 @@
   "name": "lcrown-facter",
   "version": "0.1.0",
   "author": "Lucas Crownover",
-  "summary": "",
+  "summary": "Provides a simple method to manage external facts",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/lcrownover/facter",
   "dependencies": [
 
   ],
