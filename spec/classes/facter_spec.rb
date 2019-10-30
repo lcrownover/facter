@@ -9,9 +9,9 @@ describe 'facter' do
       it { is_expected.to compile }
       case os_facts[:kernel]
       when 'Linux'
-        it { is_expected.to contain_file('/etc/puppetlabs/facter/facts.d/') }
+        it { is_expected.to contain_exec('mkdir -p /etc/puppetlabs/facter/facts.d/') }
       when 'windows'
-        it { is_expected.to contain_file('C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\') }
+        it { is_expected.to contain_exec('mkdir -p C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\') }
       end#case
 
     end#context

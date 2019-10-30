@@ -1,9 +1,3 @@
-# Quick defined type to implement facter facts
-# Define: facter::fact
-# Parameters:
-#   $ensure
-#   $value
-#
 # @summary
 #   Allows users to add an external fact file in yaml format
 #
@@ -17,6 +11,7 @@
 #
 # @param value
 #   value of the fact to be set
+#
 define facter::fact (
   Enum['present','absent']  $ensure    = 'present',
   Optional[String]          $file_name = undef,

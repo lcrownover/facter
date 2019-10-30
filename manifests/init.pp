@@ -17,15 +17,16 @@
 # ===================================================== #
 #
 class facter (
-  $manage_facts_d_dir = true,
+  $create_facts_d_dir = true,
   $facts_path         = $facter::params::facts_path,
   $fact_hash          = {}
 ) inherits facter::params {
 
   # Management of facts_path
-  if $manage_facts_d_dir {
-    file { $facts_path:
-      ensure => directory,
+  if $create_facts_d_dir {
+    exec { "mkdir -p ${facts_path}":
+      path    => $facts['path'],
+      creates => $facts_path,
     }
   }
 
