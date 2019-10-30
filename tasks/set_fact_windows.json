@@ -1,0 +1,5 @@
+{
+    "name": "Set Fact - Windows",
+    "description": "A task to set external facts on Windows",
+    "private": false
+}

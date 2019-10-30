@@ -1,0 +1,6 @@
+{
+    "implementations": [
+        {"name": "set_fact_linux.sh", "requirements": ["shell"]},
+        {"name": "set_fact_windows.ps1", "requirements": ["powershell"]}
+    ]
+}

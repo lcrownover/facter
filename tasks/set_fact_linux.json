@@ -1,0 +1,5 @@
+{
+    "name": "Set Fact - Linux",
+    "description": "A task to set external facts on Linux",
+    "private": false
+}
