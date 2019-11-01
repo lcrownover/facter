@@ -24,8 +24,8 @@ def set_fact(name, value)
   # stdout, stderr, status = Open3.capture3(['facter',name])
   # raise Puppet::Error, _("stderr: ' %{stderr}') % { stderr: stderr }") if status.exitstatus != 0
 
-  # format a result and return it
-  { status: 'success' }
+  # # format a result and return it
+  # { status: 'success' }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
