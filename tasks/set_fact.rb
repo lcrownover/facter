@@ -25,7 +25,7 @@ def set_fact(name, value)
   raise StandardError.new "Failed to verify fact existence" unless status.exitstatus == 0
 
   # format a result
-  result = { 'result': "Fact '#{name}' has been set to '#{value}'" }
+  result = { 'result': "Fact [#{name}] has been set to [#{value}]" }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
@@ -38,7 +38,7 @@ begin
   result = set_fact(name, value)
   puts result.to_json
   exit 0
-rescue PError => e
+rescue Error => e
   puts({ status: 'failure', error: e.message }.to_json)
   exit 1
 end
