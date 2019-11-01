@@ -18,14 +18,14 @@ def set_fact(name, value)
 
   # Create a file in facts_dir with the correct name and data
   File.open(file_path, 'w'){|f| f.write(file_content)}
-  raise Puppet::Error, _("stderr": "Failed to write to path: #{file_path}") unless File.exist?(file_path)
+  raise Puppet::Error, "Failed to write to path: #{file_path}" unless File.exist?(file_path)
 
   # Test the fact to see if it's working
   stdout, stderr, status = Open3.capture3(['facter',name])
-  raise Puppet::Error, _("stderr: ' %{stderr}') % { stderr: stderr }") if status.exitstatus != 0
+  raise Puppet::Error, "#{stderr}" if status.exitstatus != 0
 
   # format a result and return it
-  { status: 'success', msg: "#{name} => #{value}" }
+  { status: 'success', message: "#{name} => #{value}" }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
@@ -39,6 +39,6 @@ begin
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
-  puts({ _error: { kind: 'facter::set_task/failure', msg: e.message }}.to_json)
+  puts({ status: 'failure', message: e.message }.to_json)
   exit 1
 end

@@ -22,12 +22,12 @@ def set_fact(name, value)
     begin
       FileUtils.rm_f(file_path)
     rescue => e
-      raise Puppet::Error, _("stderr": "Failed to remove file at: #{facts_dir}")
+      raise Puppet::Error, "Failed to remove file at: #{facts_dir}"
     end
   else
-    raise Puppet::Error, _("stderr": "Fact doesn't exist at: #{facts_dir}")
+    raise Puppet::Error, "Fact doesn't exist at: #{facts_dir}"
   end
-  { status: 'success', msg: 'Fact removed' }
+  { status: 'success', message: 'Fact removed' }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
@@ -41,6 +41,6 @@ begin
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
-  puts({ _error: { kind: 'facter::set_task/failure', msg: e.message }}.to_json)
+  puts({ status: 'failure', message: e.message }.to_json)
   exit 1
 end
