@@ -37,7 +37,7 @@ value  = params['value']
 begin
   result = set_fact(name, value)
   puts result.to_json
-  exit 0
+  # exit 0
 rescue Puppet::Error => e
   puts({ status: 'failure', error: e.message }.to_json)
   exit 1
