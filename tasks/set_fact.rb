@@ -18,14 +18,14 @@ def set_fact(name, value)
 
   # Create a file in facts_dir with the correct name and data
   File.open(file_path, 'w'){|f| f.write(file_content)}
-  raise StandardError.new "Failed to write to path: #{file_path}" unless File.exist?(file_path)
+  raise Puppet::Error, _("Failed to write to path: #{file_path}") unless File.exist?(file_path)
 
   # Test the fact to see if it's working
   stdout, stderr, status = Open3.capture3(['facter',name])
-  raise StandardError.new "Failed to verify fact existence" unless status.exitstatus == 0
+  raise Puppet::Error, _("stderr: ' %{stderr}') % { stderr: stderr }") if status.exitstatus != 0
 
   # format a result
-  result = { 'result': "Fact [#{name}] has been set to [#{value}]" }
+  result = { status: 'success', result: "Fact [#{name}] has been set to [#{value}]" }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
@@ -38,7 +38,9 @@ begin
   result = set_fact(name, value)
   puts result.to_json
   exit 0
-rescue Error => e
-  puts({ status: 'failure', error: e.message }.to_json)
+rescue Puppet::Error => e
+  puts({ "_error": { "msg": e.message, "kind": "puppetlabs.tasks/task-error", "details": { "exitcode": 1 } }.to_json)
   exit 1
+rescue Exception => e
+  puts e
 end
