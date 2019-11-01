@@ -1,0 +1,11 @@
+{
+    "puppet_task_version": 1,
+    "supports_noop": false,
+    "description": "Set an external fact on a system",
+    "parameters": {
+      "name": {
+        "description": "Name of the fact to be removed",
+        "type": "Pattern[/[a-z0-9_]+/]"
+      }
+  }
+}
