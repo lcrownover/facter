@@ -25,7 +25,7 @@ def set_fact(name, value)
   raise Puppet::Error, _("stderr: ' %{stderr}') % { stderr: stderr }") if status.exitstatus != 0
 
   # format a result and return it
-  { status: 'success' }
+  { status: 'success', msg: "#{name} => #{value}" }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
@@ -36,12 +36,9 @@ value  = params['value']
 # Run the command with the desired setting, and return the result
 begin
   result = set_fact(name, value)
-  puts result.class
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
-  puts({ _error: { kind: 'facter_task/failure', msg: e.message }}.to_json)
+  puts({ _error: { kind: 'facter::set_task/failure', msg: e.message }}.to_json)
   exit 1
-rescue Exception => e
-  puts e
 end
