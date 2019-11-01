@@ -125,3 +125,27 @@ facter::fact_hash:
   *optional[String]:* Set the target file name instead of using the resource name as the file name.
 
   *default:* `$title`
+
+
+
+## Tasks
+
+This module comes with two cross-platform tasks, `set_fact` and `remove_fact`
+
+
+### set_fact
+
+Accepts a `name` and `value` parameter. Creates a fact file in the facts.d directory in the same manner as the defined type
+
+```bash
+bolt task run facter::set_fact --nodes web1.company.vm name=mytestfact value=mytestvalue
+```
+
+
+### remove_fact
+
+Accepts a `name` parameter. Removes a fact file in the facts.d directory, returns an error if the file doesn't exist
+
+```bash
+bolt task run facter::remove_fact --nodes web1.company.vm name=mytestfact
+```

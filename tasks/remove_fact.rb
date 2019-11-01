@@ -4,28 +4,24 @@ require 'open3'
 require 'puppet'
 require 'fileutils'
 
-def set_fact(name, value)
-  #Cross platform to set facts_dir
-  if Facter.value(:os)['family'] == 'windows'
-    facts_dir = 'C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\'
-  else
-    facts_dir = '/etc/puppetlabs/facter/facts.d/'
-  end
+def set_fact(name, _value)
+  # Cross platform to set facts_dir
+  facts_dir = if Facter.value(:os)['family'] == 'windows'
+                'C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\'
+              else
+                '/etc/puppetlabs/facter/facts.d/'
+              end
 
   # Set some vars in a readable location
   file_name     = "#{name}.yaml"
-  file_content  = "#{name}: '#{value}'\n"
   file_path     = "#{facts_dir}#{file_name}"
 
   # Create a file in facts_dir with the correct name and data
-  if File.exist?(file_path)
-    begin
-      FileUtils.rm_f(file_path)
-    rescue => e
-      raise Puppet::Error, "Failed to remove file at: #{facts_dir}"
-    end
-  else
-    raise Puppet::Error, "Fact doesn't exist at: #{facts_dir}"
+  raise Puppet::Error, "Fact doesn't exist at: #{facts_dir}" unless File.exist?(file_path)
+  begin
+    FileUtils.rm_f(file_path)
+  rescue => e
+    raise Puppet::Error, e
   end
   { status: 'success', message: 'Fact removed' }
 end
