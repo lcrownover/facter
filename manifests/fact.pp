@@ -23,7 +23,7 @@ define facter::fact (
     fail('Class "facter" must be included before using its defined types')
   }
 
-  $facts_path = $::facter::facts_path
+  $facts_dir = $::facter::facts_dir
 
   # Parameter validation on fact name regardless of present or absent
   if $title !~ /[a-z0-9_]+/ {
@@ -46,14 +46,14 @@ define facter::fact (
         fail("facter::fact::${title}: '${value}' must begin with a lowercase letter and can only include letters, digits, and underscores")
       }
       # Put the fact in place
-      file { "${facts_path}${fact_file_name}.yaml":
+      file { "${facts_dir}${fact_file_name}.yaml":
         ensure  => $ensure,
         content => "${title}: ${value}\n",
       }
     }#present
 
     'absent': {
-      file { "${facts_path}${fact_file_name}.yaml": ensure => absent }
+      file { "${facts_dir}${fact_file_name}.yaml": ensure => absent }
     }#absent
 
     default: {}

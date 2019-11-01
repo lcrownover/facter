@@ -1,0 +1,15 @@
+{
+    "puppet_task_version": 1,
+    "supports_noop": false,
+    "description": "Set an external fact on a system",
+    "parameters": {
+      "name": {
+        "description": "Name of the fact, as well as name of the yaml file in /etc/puppetlabs/facter/facts.d",
+        "type": "Pattern[/[a-z0-9_]+/]"
+      },
+      "value": {
+        "description": "Value of the fact",
+        "type": "Pattern[/[a-z0-9_]+/]"
+      }
+  }
+}

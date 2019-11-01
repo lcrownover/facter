@@ -17,15 +17,15 @@
 # ===================================================== #
 #
 class facter (
-  $facts_path              = $facter::params::facts_path,
+  $facts_dir              = $facter::params::facts_dir,
   $fact_hash               = {},
   $disable_reserved_absent = false,
 ) inherits facter::params {
 
   # Create the folder if it doesn't exist
-  exec { "mkdir -p ${facts_path}":
+  exec { "mkdir -p ${facts_dir}":
     path    => $facts['path'],
-    creates => $facts_path,
+    creates => $facts_dir,
   }
 
   # Setting facter facts via hiera:
