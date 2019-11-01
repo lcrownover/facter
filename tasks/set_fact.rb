@@ -4,7 +4,7 @@ require 'open3'
 require 'puppet'
 
 def set_fact(name, value)
-  Cross platform to set facts_dir
+  #Cross platform to set facts_dir
   if Facter.value(:os)['family'] == 'windows'
     facts_dir = 'C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\'
   else
