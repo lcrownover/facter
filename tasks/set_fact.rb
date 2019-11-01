@@ -39,7 +39,7 @@ begin
   puts result.to_json
   exit 0
 rescue Puppet::Error => e
-  puts({ "_error": { "msg": e.message, "kind": "puppetlabs.tasks/task-error", "details": { "exitcode": 1 } }.to_json)
+  puts({ status: 'failure', error: e.message }.to_json)
   exit 1
 rescue Exception => e
   puts e
