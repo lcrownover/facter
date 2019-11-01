@@ -25,7 +25,7 @@ def set_fact(name, value)
   raise Puppet::Error, _("stderr: ' %{stderr}') % { stderr: stderr }") if status.exitstatus != 0
 
   # format a result and return it
-  { status: 'success', result: "Fact [#{name}] has been set to [#{value}]" }
+  { 'status' => 'success', 'result' => "Fact [#{name}] has been set to [#{value}]" }
 end
 
 # Find the desired setting from the JSON coming in over STDIN
