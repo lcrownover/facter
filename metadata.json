@@ -1,10 +1,11 @@
 {
   "name": "lcrownover-facter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Lucas Crownover",
   "summary": "Provides a simple method to manage external facts",
   "license": "Apache-2.0",
   "source": "https://github.com/lcrownover/facter",
+  "project_page": "https://github.com/lcrownover/facter",
   "dependencies": [
 
   ],
