@@ -13,9 +13,9 @@
 #   value of the fact to be set
 #
 define facter::fact (
-  Enum['present','absent']  $ensure    = 'present',
-  Optional[String]          $file_name = undef,
-  Optional[String]          $value     = undef,
+  Enum['present','absent']        $ensure    = 'present',
+  Optional[String]                $file_name = undef,
+  Variant[String, Boolean, Undef] $value     = undef,
 ) {
 
   # Make sure the class has been defined to access its data
