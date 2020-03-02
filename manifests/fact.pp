@@ -42,8 +42,10 @@ define facter::fact (
   case $ensure {
     'present': {
       # Parameter validation on fact value only if it's present
-      if $value !~ /[a-z0-9_]*/ {
-        fail("facter::fact::${title}: '${value}' must begin with a lowercase letter and can only include letters, digits, and underscores")
+      if $value.is_a(String) {
+        if $value !~ /[a-z0-9_]*/ {
+          fail("facter::fact::${title}: '${value}' must begin with a lowercase letter and can only include letters, digits, and underscores")
+        }
       }
       # Put the fact in place
       file { "${facts_dir}${fact_file_name}.yaml":
