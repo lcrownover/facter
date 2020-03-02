@@ -21,6 +21,7 @@ class facter (
   $fact_hash               = {},
   $disable_reserved_absent = false,
 ) inherits facter::params {
+  include stdlib
 
   # Create the folder if it doesn't exist
   exec { "mkdir -p ${facts_dir}":
