@@ -27,7 +27,7 @@ define facter::fact (
 
   # Parameter validation on fact name regardless of present or absent
   if $title !~ /[a-z0-9_]+/ {
-    fail("facter::fact::${title} must begin with a lowercase letter and can only include letters, digits, and underscores")
+    fail("${title} must begin with a lowercase letter and can only include letters, digits, and underscores")
   }
 
   # Parameter validation for filename if specified
@@ -44,7 +44,7 @@ define facter::fact (
       # Parameter validation on fact value only if it's present
       if $value.is_a(String) {
         if $value !~ /[a-z0-9_]*/ {
-          fail("facter::fact::${title}: '${value}' must begin with a lowercase letter and can only include letters, digits, and underscores")
+          fail("${title}: '${value}' must begin with a lowercase letter and can only include letters, digits, and underscores")
         }
       }
       # Put the fact in place
