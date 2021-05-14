@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "source": "https://github.com/lcrownover/facter",
   "project_page": "https://github.com/lcrownover/facter",
+  "issues_url": "https://github.com/lcrownover/facter/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -16,7 +17,9 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6", "7", "8"
+        "6",
+        "7",
+        "8"
       ]
     },
     {
@@ -28,7 +31,9 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6", "7", "8"
+        "6",
+        "7",
+        "8"
       ]
     },
     {
