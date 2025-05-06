@@ -2,6 +2,7 @@
 require 'json'
 require 'open3'
 require 'puppet'
+require 'facter'
 require 'fileutils'
 
 def set_fact(name, _value)
