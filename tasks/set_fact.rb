@@ -2,6 +2,7 @@
 require 'json'
 require 'open3'
 require 'puppet'
+require 'facter'
 
 def set_fact(name, value)
   # Cross platform to set facts_dir
