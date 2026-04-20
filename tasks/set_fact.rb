@@ -2,11 +2,11 @@
 require 'json'
 require 'open3'
 require 'puppet'
-require 'facter'
 
 def set_fact(name, value)
-  # Cross platform to set facts_dir
-  facts_dir = if Facter.value(:os)['family'] == 'windows'
+  # Gem.win_platform? replaces Facter.value(:os) — the Facter Ruby API is not
+  # available in Puppet 8.x where facter is a standalone binary, not a gem.
+  facts_dir = if Gem.win_platform?
                 'C:\\ProgramData\\PuppetLabs\\facter\\facts.d\\'
               else
                 '/etc/puppetlabs/facter/facts.d/'
